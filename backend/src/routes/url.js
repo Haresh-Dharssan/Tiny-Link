@@ -1,7 +1,6 @@
 import express from "express";
 import { pool } from "../db.js";
-import { generateCode } from "../utils/generateCode.js";
-import { nanoid } from "nanoid";
+import os from "os";
 
 const router = express.Router();
 
@@ -42,13 +41,5 @@ router.get("/:code", async (req, res) => {
     res.status(500).send("Server error");
   }
 });
-
-router.get("/healthz", (req, res) => {
-  res.status(200).json({
-    ok: true,
-    version: "1.0"
-  });
-});
-
 
 export default router;

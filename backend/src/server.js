@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import urlRoutes from "./routes/url.js";
 import linkRoutes from "./routes/linkRoutes.js";  
+import healthRoute from "./routes/health.js";
 
 dotenv.config();
 
@@ -13,6 +14,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/links", linkRoutes);
+app.use("/", healthRoute);
 app.use("/", urlRoutes);
 
 // Port

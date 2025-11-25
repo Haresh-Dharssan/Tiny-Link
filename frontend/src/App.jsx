@@ -1,16 +1,22 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Dashboard from "./pages/Dashboard.jsx";
-import CodeStats from "./pages/CodeStats.jsx";
-import Health from "./pages/Health.jsx";
+import Dashboard from "./pages/Dashboard";
+import CodeStats from "./pages/CodeStats";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 function App() {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/code/:code" element={<CodeStats />} />
-        <Route path="/healthz" element={<Health />} />
-      </Routes>
+      <div className="min-h-screen flex flex-col bg-gray-50">
+        <Header />
+        <main className="flex-1 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <Routes>
+            <Route path="/" element={<Dashboard />} />
+            <Route path="/code/:code" element={<CodeStats />} />
+          </Routes>
+        </main>
+        <Footer />
+      </div>
     </BrowserRouter>
   );
 }
