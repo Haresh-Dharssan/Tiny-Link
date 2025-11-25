@@ -21,11 +21,14 @@ export default function CodeStats() {
 
   return (
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 space-y-4">
-      <h2 className="text-2xl font-semibold">Stats for {code}</h2>
+      <h1 className="text-2xl flex justify-center font-semibold">Stats for {code}</h1>
 
-      <Link to="/" className="text-blue-600 hover:underline">
+      <button
+        onClick={() => window.location.href = "/"}
+        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 text-gray-700 hover:bg-gray-50 transition"
+      >
         ← Back to Dashboard
-      </Link>
+      </button>
 
       <div className="space-y-2">
         <p><b>Short URL:</b> {" "}

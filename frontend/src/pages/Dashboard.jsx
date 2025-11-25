@@ -61,7 +61,7 @@ export default function Dashboard() {
 
       {/* PAGE HEADER */}
       <div>
-        <h1 className="text-3xl font-bold tracking-tight text-gray-800">
+        <h1 className="text-3xl font-bold tracking-tight text-black">
           Dashboard
         </h1>
         <p className="text-gray-500 mt-1">
@@ -104,7 +104,7 @@ export default function Dashboard() {
             disabled={creating}
             className="bg-red-600 text-white px-5 py-3 rounded-xl hover:bg-red-700 transition disabled:bg-gray-400"
           >
-            {creating ? "Creating..." : "Create Short Link"}
+            {creating ? "Creating..." : "Generate Link"}
           </button>
         </form>
       </div>
