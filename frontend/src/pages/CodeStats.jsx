@@ -32,8 +32,8 @@ export default function CodeStats() {
 
       <div className="space-y-2">
         <p><b>Short URL:</b> {" "}
-          <a href={"http://localhost:3000/" + code} className="text-blue-600" target="_blank">
-            {"http://localhost:3000/" + code}
+          <a href={window.location.origin + "/" + code} className="text-blue-600" target="_blank">
+            {window.location.origin + "/" + code}
           </a>
         </p>
         <p>
