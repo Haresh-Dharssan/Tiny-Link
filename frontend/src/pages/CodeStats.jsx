@@ -32,8 +32,8 @@ export default function CodeStats() {
 
       <div className="space-y-2">
         <p><b>Short URL:</b> {" "}
-          <a href={window.location.origin + "/" + code} className="text-blue-600" target="_blank">
-            {window.location.origin + "/" + code}
+          <a href={"https://tiny-link-mxvz.onrender.com/" + code} className="text-blue-600" target="_blank">
+            {"https://tiny-link-mxvz.onrender.com/" + code}
           </a>
         </p>
         <p>
