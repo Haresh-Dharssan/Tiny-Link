@@ -90,7 +90,7 @@ export default function Dashboard() {
           disabled={loading}
           style={{ marginLeft: "10px", padding: "8px 16px" }}
         >
-          {loading ? "Creating..." : "Shorten"}
+          {loading ? "Creating..." : "Generate"}
         </button>
       </form>
 

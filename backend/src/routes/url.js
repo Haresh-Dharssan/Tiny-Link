@@ -9,7 +9,10 @@ const router = express.Router();
 router.get("/:code", async (req, res) => {
   try {
     const { code } = req.params;
-
+    const pattern = /^[A-Za-z0-9]{6,8}$/;
+    if (!pattern.test(code)) {
+      return res.status(404).send("Short link Not found");
+    }
     // Find target URL
     const result = await pool.query(
       "SELECT target_url FROM links WHERE short_code = $1",
@@ -40,76 +43,12 @@ router.get("/:code", async (req, res) => {
   }
 });
 
-router.get("/code/:code", async (req, res) => {
-  try {
-    const { code } = req.params;
-
-    const result = await pool.query(
-      `SELECT id, short_code, target_url, click_count, last_clicked_at, created_at
-       FROM links
-       WHERE short_code = $1`,
-      [code]
-    );
-
-    if (result.rows.length === 0) {
-      return res.status(404).json({ error: "Code not found" });
-    }
-
-    res.json({ ok: true, data: result.rows[0] });
-
-  } catch (err) {
-    console.error("Stats error:", err);
-    res.status(500).json({ error: "Server error" });
-  }
+router.get("/healthz", (req, res) => {
+  res.status(200).json({
+    ok: true,
+    version: "1.0"
+  });
 });
 
-// POST /shorten - create a short link
-router.post("/shorten", async (req, res) => {
-  try {
-    const { url, customCode, ownerId = null } = req.body;
-
-    if (!url) {
-      return res.status(400).json({ error: "Invalid URL" });
-    }
-
-    // Validate URL
-    try {
-      new URL(url);
-    } catch {
-      return res.status(400).json({ error: "Malformed URL" });
-    }
-
-    const code = customCode || generateCode(6);
-    const id = nanoid(12); // primary key for links.id
-
-    // Check if code already exists
-    const existing = await pool.query(
-      "SELECT id FROM links WHERE short_code = $1",
-      [code]
-    );
-
-    if (existing.rows.length > 0) {
-      return res.status(409).json({ error: "Short code already in use" });
-    }
-
-    // Insert link
-    await pool.query(
-      `INSERT INTO links (id, short_code, target_url, owner_id)
-       VALUES ($1, $2, $3, $4)`,
-      [id, code, url, ownerId]
-    );
-
-    return res.status(201).json({
-      ok: true,
-      id,
-      code,
-      short_url: `${process.env.BASE_URL}/${code}`
-    });
-
-  } catch (err) {
-    console.error("Shorten error:", err);
-    res.status(500).json({ error: "Server error" });
-  }
-});
 
 export default router;

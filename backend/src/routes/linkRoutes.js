@@ -11,7 +11,7 @@ const router = express.Router();
 ---------------------------------------- */
 router.post("/", async (req, res) => {
   try {
-    const { url, customCode, ownerId = null } = req.body;
+    const { url, customCode} = req.body;
 
     if (!url) {
       return res.status(400).json({ error: "URL is required" });
@@ -24,7 +24,19 @@ router.post("/", async (req, res) => {
       return res.status(400).json({ error: "Malformed URL" });
     }
 
-    const shortCode = customCode || generateCode(6);
+    if (customCode) {
+      const pattern = /^[A-Za-z0-9]{6,8}$/;
+
+      if (!pattern.test(customCode)) {
+        return res.status(400).json({
+          error: "Custom code must match pattern [A-Za-z0-9]{6,8}"
+        });
+      }
+    }
+
+    const len = Math.floor(Math.random() * 3) + 6;
+
+    const shortCode = customCode || generateCode(len);
     const id = nanoid(12);
 
     // Check if code already exists
@@ -39,9 +51,9 @@ router.post("/", async (req, res) => {
 
     // Insert
     await pool.query(
-      `INSERT INTO links (id, short_code, target_url, owner_id)
-       VALUES ($1, $2, $3, $4)`,
-      [id, shortCode, url, ownerId]
+      `INSERT INTO links (id, short_code, target_url)
+       VALUES ($1, $2, $3)`,
+      [id, shortCode, url]
     );
 
     return res.status(201).json({

@@ -1,9 +1,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
-import { pool } from "./db.js"; 
 import urlRoutes from "./routes/url.js";
-import healthRoutes from "./routes/health.js";
 import linkRoutes from "./routes/linkRoutes.js";  
 
 dotenv.config();
@@ -14,7 +12,6 @@ app.use(cors());
 app.use(express.json());
 
 // Routes
-app.use("/", healthRoutes);
 app.use("/api/links", linkRoutes);
 app.use("/", urlRoutes);
 
