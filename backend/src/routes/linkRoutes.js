@@ -65,7 +65,7 @@ router.post("/", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const result = await pool.query(
-      `SELECT id, short_code, target_url, click_count, created_at
+      `SELECT id, short_code, target_url, click_count, last_clicked_at, created_at
        FROM links
        ORDER BY created_at DESC`
     );
