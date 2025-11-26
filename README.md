@@ -100,53 +100,23 @@ tinylink/
 
 ## 🔌 API Endpoints (Backend)
 
-### **Create short link**
+### **Create short link** 
 `POST /api/links`
 
-Body:
-```json
-{
-  "url": "https://example.com",
-  "customCode": "mycode123"
-}
-```
-Responses:
-
-- 201 Created
-
-- 409 Conflict if code exists
-
-- 400 Bad Request if invalid code or url
-
----
-
 ### **List all links**
-
 `GET /api/links`
 
----
-
 ### **Get stats for a specific code**
-
 `GET /api/links/:code`
 
----
-
 ### **Delete link**
-
 `DELETE /api/links/:code`
 
----
-
 ### **Redirect to original URL**
-
 `GET /:code`
 Redirects using HTTP 302.
 
----
-
 ### **Health Checks**
-
 JSON health: `GET /healthz`
 
 ---
