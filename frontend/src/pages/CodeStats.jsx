@@ -32,8 +32,8 @@ export default function CodeStats() {
 
       <div className="space-y-2">
         <p><b>Short URL:</b> {" "}
-          <a href={"https://tiny-link-mxvz.onrender.com/" + code} className="text-blue-600" target="_blank">
-            {"https://tiny-link-mxvz.onrender.com/" + code}
+          <a href={ import.meta.env.VITE_API_URL+ "/" + code} className="text-blue-600" target="_blank">
+            {import.meta.env.VITE_API_URL+ "/" + code}
           </a>
         </p>
         <p>
